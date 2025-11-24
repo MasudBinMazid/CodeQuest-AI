@@ -87,7 +87,13 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
   const [isGrading, setIsGrading] = useState(false);
   const [isGeneratingTests, setIsGeneratingTests] = useState(false);
   const [hintsRevealed, setHintsRevealed] = useState<Set<string>>(new Set());
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    // Auto-hide sidebar on mobile devices
+    if (typeof window !== 'undefined') {
+      return window.innerWidth >= 1024; // lg breakpoint
+    }
+    return true;
+  });
   
   // 'testcase' shows the input data, 'result' shows the output/feedback
   const [activeTab, setActiveTab] = useState<'testcase' | 'result'>('testcase');
@@ -272,10 +278,13 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
         <div className="flex items-center gap-2 sm:gap-4">
           <button 
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="text-gray-400 hover:text-white transition-colors p-1.5 rounded hover:bg-gray-800"
+            className="text-gray-400 hover:text-white transition-colors p-1.5 rounded hover:bg-gray-800 relative"
             title={isSidebarOpen ? "Collapse Question List" : "Expand Question List"}
           >
              {isSidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
+             <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
+               {Array.from(answers.values()).filter(a => a.selectedOptionId || (a.code && a.code.length > 10)).length}
+             </span>
           </button>
           <span className="font-bold text-white text-base sm:text-lg tracking-tight">CodeQuest</span>
           <span className="hidden sm:inline bg-gray-800 text-xs px-2 py-1 rounded text-gray-400 border border-gray-700">{topic}</span>
@@ -339,9 +348,9 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
         <main className="flex-1 flex flex-col lg:flex-row overflow-hidden">
           {/* Question Description Panel */}
           <div className={`flex-1 flex flex-col border-b lg:border-r lg:border-b-0 border-gray-700 bg-ide-bg overflow-y-auto ${
-            currentQuestion.type === QuestionType.CODE ? 'lg:max-w-[40%]' : 'max-w-full'
+            currentQuestion.type === QuestionType.CODE ? 'lg:max-w-[45%]' : 'max-w-full'
           }`}>
-            <div className="p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto w-full">
+            <div className="p-4 sm:p-6 lg:p-8 w-full">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className={`text-xs font-bold px-2 py-0.5 rounded ${
@@ -370,7 +379,7 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
               <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">{currentQuestion.title}</h2>
               
               <div 
-                className="prose prose-invert prose-sm text-gray-300 mb-8 leading-relaxed max-w-none"
+                className="prose max-w-none"
                 dangerouslySetInnerHTML={{ __html: parse(preprocessDescription(currentQuestion)) as string }}
               />
 

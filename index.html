@@ -47,40 +47,107 @@
         background: #6b7280;
       }
       /* Markdown Styles for Descriptions */
+      .prose {
+        color: #d1d5db;
+      }
+      .prose h1, .prose h2, .prose h3, .prose h4 {
+        color: #f9fafb;
+        font-weight: 700;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .prose h3 {
+        font-size: 1.125rem;
+        border-bottom: 1px solid #374151;
+        padding-bottom: 0.5rem;
+      }
+      .prose p {
+        margin: 0.75rem 0;
+        line-height: 1.7;
+      }
+      .prose ul, .prose ol {
+        margin: 0.75rem 0;
+        padding-left: 1.5rem;
+      }
+      .prose li {
+        margin: 0.25rem 0;
+      }
+      /* Enhanced Table Styles */
       .prose table {
         width: 100%;
         border-collapse: collapse;
-        margin: 1rem 0;
+        margin: 1.5rem 0;
         font-size: 0.875rem;
-      }
-      .prose th, .prose td {
         border: 1px solid #4b5563;
-        padding: 0.5rem;
-        text-align: left;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        background-color: #1f2937;
+      }
+      .prose thead {
+        background: linear-gradient(to bottom, #374151, #1f2937);
       }
       .prose th {
-        background-color: #1f2937;
+        border: 1px solid #4b5563;
+        padding: 0.75rem;
+        text-align: left;
         font-weight: 600;
+        color: #f9fafb;
+        white-space: nowrap;
       }
+      .prose td {
+        border: 1px solid #374151;
+        padding: 0.75rem;
+        text-align: left;
+        color: #d1d5db;
+        background-color: #111827;
+      }
+      .prose tbody tr:hover {
+        background-color: #1f2937;
+      }
+      /* Code Styles */
       .prose code {
         background-color: #1f2937;
-        padding: 0.2rem 0.4rem;
+        padding: 0.2rem 0.5rem;
         border-radius: 0.25rem;
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.875em;
-        color: #e2e8f0;
+        color: #93c5fd;
+        border: 1px solid #374151;
       }
       .prose pre {
-        background-color: #111827;
+        background-color: #0f1419;
         padding: 1rem;
         border-radius: 0.5rem;
         overflow-x: auto;
         margin: 1rem 0;
+        border: 1px solid #1f2937;
       }
       .prose pre code {
         background-color: transparent;
         padding: 0;
         color: #f8fafc;
+        border: none;
+        font-size: 0.875rem;
+      }
+      .prose strong {
+        color: #f9fafb;
+        font-weight: 600;
+      }
+      .prose blockquote {
+        border-left: 4px solid #3b82f6;
+        padding-left: 1rem;
+        margin: 1rem 0;
+        color: #9ca3af;
+        font-style: italic;
+      }
+      /* Responsive table */
+      @media (max-width: 640px) {
+        .prose table {
+          font-size: 0.75rem;
+        }
+        .prose th, .prose td {
+          padding: 0.5rem;
+        }
       }
     </style>
   <script type="importmap">
