@@ -1,0 +1,5 @@
+{
+  "name": "CodeQuest AI",
+  "description": "An AI-powered assessment platform that generates custom coding contests, MCQs, and SQL challenges with an integrated AI-judging environment.",
+  "requestFramePermissions": []
+}
