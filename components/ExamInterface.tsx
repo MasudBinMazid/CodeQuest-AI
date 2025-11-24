@@ -491,9 +491,10 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
                     padding: { top: 16 },
                     wordWrap: 'on',
                     tabSize: 4,
-                    // Clean Exam Mode
-                    quickSuggestions: { other: false, comments: false, strings: false },
+                    // Completely disable all IntelliSense and suggestions
+                    quickSuggestions: false,
                     suggestOnTriggerCharacters: false,
+                    suggest: { showWords: false, showSnippets: false },
                     parameterHints: { enabled: false },
                     snippetSuggestions: "none",
                     wordBasedSuggestions: "off",
@@ -509,7 +510,14 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
                     tabCompletion: "off",
                     renderValidationDecorations: 'on',
                     bracketPairColorization: { enabled: true },
-                    fontFamily: "'JetBrains Mono', monospace"
+                    fontFamily: "'JetBrains Mono', monospace",
+                    // Additional settings to ensure clean editor
+                    acceptSuggestionOnCommitCharacter: false,
+                    autoClosingBrackets: "never",
+                    autoClosingQuotes: "never",
+                    autoSurround: "never",
+                    formatOnPaste: false,
+                    formatOnType: false
                   }}
                   loading={<div className="text-gray-500 p-4">Loading Editor...</div>}
                 />
