@@ -1,6 +1,5 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+
+![Screenshot 2025-11-24 233848](https://github.com/user-attachments/assets/93dd888a-5795-475d-b264-26fc572c6867)
 
 # 🚀 CodeQuest AI
 
