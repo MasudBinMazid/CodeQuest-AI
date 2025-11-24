@@ -268,39 +268,40 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
 
   return (
     <div className="flex flex-col h-screen bg-ide-bg text-ide-fg font-sans overflow-hidden">
-      <header className="h-14 bg-ide-sidebar border-b border-gray-700 flex items-center justify-between px-4 shrink-0 z-10">
-        <div className="flex items-center gap-4">
+      <header className="h-14 bg-ide-sidebar border-b border-gray-700 flex items-center justify-between px-2 sm:px-4 shrink-0 z-10">
+        <div className="flex items-center gap-2 sm:gap-4">
           <button 
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="text-gray-400 hover:text-white transition-colors p-1.5 rounded hover:bg-gray-800"
             title={isSidebarOpen ? "Collapse Question List" : "Expand Question List"}
           >
-             {isSidebarOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
+             {isSidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
           </button>
-          <span className="font-bold text-white text-lg tracking-tight">CodeQuest</span>
-          <span className="bg-gray-800 text-xs px-2 py-1 rounded text-gray-400 border border-gray-700">{topic}</span>
+          <span className="font-bold text-white text-base sm:text-lg tracking-tight">CodeQuest</span>
+          <span className="hidden sm:inline bg-gray-800 text-xs px-2 py-1 rounded text-gray-400 border border-gray-700">{topic}</span>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2 sm:gap-6">
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-1 sm:gap-2 text-gray-400 hover:text-white transition-colors p-1.5"
             title="Save progress and exit to menu"
           >
-            <Save size={18} />
-            <span className="hidden sm:inline text-sm font-medium">Save & Exit</span>
+            <Save size={16} className="sm:w-[18px] sm:h-[18px]" />
+            <span className="hidden md:inline text-sm font-medium">Save & Exit</span>
           </button>
           
-          <div className="h-6 w-px bg-gray-700 mx-2"></div>
+          <div className="hidden sm:block h-6 w-px bg-gray-700 mx-2"></div>
 
-          <div className={`flex items-center gap-2 text-sm font-mono ${isTimeCritical ? 'text-red-400 animate-pulse' : 'text-gray-300'}`}>
-            {timeLimit === 0 ? <Clock size={16} /> : <Hourglass size={16} />}
+          <div className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-mono ${isTimeCritical ? 'text-red-400 animate-pulse' : 'text-gray-300'}`}>
+            {timeLimit === 0 ? <Clock size={14} className="sm:w-4 sm:h-4" /> : <Hourglass size={14} className="sm:w-4 sm:h-4" />}
             {getTimerDisplay()}
           </div>
           <button
             onClick={handleSubmitAll}
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-lg shadow-green-900/20"
+            className="bg-green-600 hover:bg-green-700 text-white px-2 sm:px-4 py-1.5 rounded text-xs sm:text-sm font-medium transition-colors shadow-lg shadow-green-900/20"
           >
-            Submit Exam
+            <span className="hidden sm:inline">Submit Exam</span>
+            <span className="sm:hidden">Submit</span>
           </button>
         </div>
       </header>
@@ -308,11 +309,11 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
       <div className="flex flex-1 overflow-hidden">
         <aside 
           className={`bg-ide-sidebar border-r border-gray-700 flex flex-col shrink-0 transition-all duration-300 ease-in-out overflow-hidden ${
-            isSidebarOpen ? 'w-64 opacity-100' : 'w-0 opacity-0 border-none'
+            isSidebarOpen ? 'w-48 sm:w-56 md:w-64 opacity-100' : 'w-0 opacity-0 border-none'
           }`}
         >
-          <div className="w-64 flex flex-col h-full">
-            <div className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">Questions</div>
+          <div className="w-48 sm:w-56 md:w-64 flex flex-col h-full">
+            <div className="p-3 sm:p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">Questions</div>
             <div className="flex-1 overflow-y-auto px-2 space-y-1 pb-4">
               {questions.map((q, idx) => (
                 <button
@@ -335,12 +336,14 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
           </div>
         </aside>
 
-        <main className="flex-1 flex overflow-hidden">
+        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden">
           {/* Question Description Panel */}
-          <div className={`flex-1 flex flex-col border-r border-gray-700 bg-ide-bg overflow-y-auto ${currentQuestion.type === QuestionType.CODE ? 'max-w-[40%]' : 'max-w-full'}`}>
-            <div className="p-8 max-w-3xl mx-auto w-full">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
+          <div className={`flex-1 flex flex-col border-b lg:border-r lg:border-b-0 border-gray-700 bg-ide-bg overflow-y-auto ${
+            currentQuestion.type === QuestionType.CODE ? 'lg:max-w-[40%]' : 'max-w-full'
+          }`}>
+            <div className="p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto w-full">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
+                <div className="flex items-center gap-2 flex-wrap">
                   <span className={`text-xs font-bold px-2 py-0.5 rounded ${
                     currentQuestion.difficulty === 'Beginner' ? 'bg-green-500/20 text-green-400' :
                     currentQuestion.difficulty === 'Intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
@@ -358,12 +361,13 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
                     className="flex items-center gap-1.5 text-xs text-yellow-400 hover:text-yellow-300 transition-colors"
                   >
                     <Lightbulb size={14} />
-                    {hintsRevealed.has(currentQuestion.id) ? 'Hide Hint' : 'Show Hint'}
+                    <span className="hidden sm:inline">{hintsRevealed.has(currentQuestion.id) ? 'Hide Hint' : 'Show Hint'}</span>
+                    <span className="sm:hidden">Hint</span>
                   </button>
                 )}
               </div>
               
-              <h2 className="text-2xl font-bold text-white mb-4">{currentQuestion.title}</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">{currentQuestion.title}</h2>
               
               <div 
                 className="prose prose-invert prose-sm text-gray-300 mb-8 leading-relaxed max-w-none"
@@ -414,18 +418,18 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
                 </div>
               )}
 
-              <div className="mt-12 flex items-center justify-between pt-6 border-t border-gray-800">
+              <div className="mt-8 sm:mt-12 flex items-center justify-between pt-4 sm:pt-6 border-t border-gray-800">
                 <button 
                   onClick={() => setCurrentIdx(Math.max(0, currentIdx - 1))}
                   disabled={currentIdx === 0}
-                  className="flex items-center gap-1 text-sm text-gray-400 hover:text-white disabled:opacity-50"
+                  className="flex items-center gap-1 text-xs sm:text-sm text-gray-400 hover:text-white disabled:opacity-50"
                 >
-                  <ChevronLeft size={16}/> Previous
+                  <ChevronLeft size={16}/> <span className="hidden sm:inline">Previous</span><span className="sm:hidden">Prev</span>
                 </button>
                 <button 
                   onClick={() => setCurrentIdx(Math.min(questions.length - 1, currentIdx + 1))}
                   disabled={currentIdx === questions.length - 1}
-                  className="flex items-center gap-1 text-sm text-gray-400 hover:text-white disabled:opacity-50"
+                  className="flex items-center gap-1 text-xs sm:text-sm text-gray-400 hover:text-white disabled:opacity-50"
                 >
                   Next <ChevronRight size={16}/>
                 </button>
@@ -435,10 +439,10 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
 
           {/* Right Panel: Editor & Test Results */}
           {currentQuestion.type === QuestionType.CODE && (
-            <div className="flex-1 flex flex-col bg-[#1e1e1e]">
+            <div className="flex-1 flex flex-col bg-[#1e1e1e] min-h-[50vh] lg:min-h-0">
               
               {/* Minimal Editor Header */}
-              <div className="flex items-center justify-between px-4 py-2 border-b border-[#333] bg-[#1e1e1e]">
+              <div className="flex items-center justify-between px-2 sm:px-4 py-2 border-b border-[#333] bg-[#1e1e1e]">
                 <div className="flex items-center gap-3">
                    <div className="flex items-center gap-1 text-sm font-medium text-gray-300 bg-[#2d2d2d] px-2 py-1 rounded cursor-pointer hover:bg-[#3d3d3d] transition-colors">
                       <span className="text-green-400 font-bold">{currentQuestion.language === 'sql' ? 'SQL' : 'Python'}</span>
@@ -503,12 +507,12 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
               </div>
 
               {/* Bottom Panel (Tabs) */}
-              <div className="h-[40%] flex flex-col border-t border-[#333] bg-[#1e1e1e]">
+              <div className="h-[35%] sm:h-[40%] flex flex-col border-t border-[#333] bg-[#1e1e1e]">
                 {/* Tabs Header */}
-                <div className="flex items-center gap-1 px-2 pt-2 border-b border-[#333] bg-[#1e1e1e] select-none">
+                <div className="flex items-center gap-1 px-2 pt-2 border-b border-[#333] bg-[#1e1e1e] select-none overflow-x-auto">
                   <button
                     onClick={() => setActiveTab('testcase')}
-                    className={`flex items-center gap-2 px-4 py-2 text-sm rounded-t-lg transition-colors relative top-[1px] ${
+                    className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-t-lg transition-colors relative top-[1px] whitespace-nowrap ${
                       activeTab === 'testcase' 
                         ? 'bg-[#1e1e1e] text-white border-b-2 border-green-500' 
                         : 'text-gray-500 hover:text-gray-300'
@@ -517,11 +521,12 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
                     <div className={`p-0.5 rounded ${activeTab === 'testcase' ? 'bg-green-900/50 text-green-500' : 'text-gray-500'}`}>
                       <CheckCircle2 size={14} />
                     </div>
-                    Testcase
+                    <span className="hidden sm:inline">Testcase</span>
+                    <span className="sm:hidden">Tests</span>
                   </button>
                   <button
                     onClick={() => setActiveTab('result')}
-                    className={`flex items-center gap-2 px-4 py-2 text-sm rounded-t-lg transition-colors relative top-[1px] ${
+                    className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-t-lg transition-colors relative top-[1px] whitespace-nowrap ${
                       activeTab === 'result' 
                         ? 'bg-[#1e1e1e] text-white border-b-2 border-green-500' 
                         : 'text-gray-500 hover:text-gray-300'
@@ -530,12 +535,13 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
                     <div className={`p-0.5 rounded ${activeTab === 'result' ? 'bg-green-900/50 text-green-500' : 'text-gray-500'}`}>
                       <Terminal size={14} />
                     </div>
-                    Test Result
+                    <span className="hidden sm:inline">Test Result</span>
+                    <span className="sm:hidden">Result</span>
                   </button>
                 </div>
 
                 {/* Tab Content */}
-                <div className="flex-1 overflow-auto p-4 font-mono text-sm">
+                <div className="flex-1 overflow-auto p-2 sm:p-4 font-mono text-xs sm:text-sm">
                   {activeTab === 'testcase' ? (
                     <div className="h-full">
                        {currentAnswer?.testInput ? (
@@ -602,23 +608,23 @@ const ExamInterface: React.FC<ExamInterfaceProps> = ({
               </div>
 
               {/* Editor Footer Actions */}
-              <div className="px-4 py-3 bg-[#1e1e1e] border-t border-[#333] flex items-center justify-between">
-                  <button className="text-gray-500 hover:text-gray-300 text-sm flex items-center gap-1 transition-colors">
-                    <div className="w-2 h-2 rounded-full bg-gray-600"></div> Console
+              <div className="px-2 sm:px-4 py-2 sm:py-3 bg-[#1e1e1e] border-t border-[#333] flex items-center justify-between">
+                  <button className="text-gray-500 hover:text-gray-300 text-xs sm:text-sm flex items-center gap-1 transition-colors">
+                    <div className="w-2 h-2 rounded-full bg-gray-600"></div> <span className="hidden sm:inline">Console</span>
                   </button>
                   <div className="flex gap-2">
                       <button 
                         onClick={handleRunCode}
                         disabled={isGrading}
-                        className="bg-[#333] hover:bg-[#444] text-white px-5 py-1.5 rounded text-sm font-medium transition-colors border border-[#444] flex items-center gap-2"
+                        className="bg-[#333] hover:bg-[#444] text-white px-3 sm:px-5 py-1.5 rounded text-xs sm:text-sm font-medium transition-colors border border-[#444] flex items-center gap-2"
                       >
                          <Play size={14} className={isGrading ? 'hidden' : ''} />
                          {isGrading ? 'Running...' : 'Run'}
                       </button>
                       <button 
-                        onClick={handleRunCode} // In this context, "Submit" acts similarly to Run but conceptually is final. Using same handler for demo.
+                        onClick={handleRunCode}
                         disabled={isGrading}
-                        className="bg-green-700 hover:bg-green-600 text-white px-5 py-1.5 rounded text-sm font-medium transition-colors shadow-lg shadow-green-900/20"
+                        className="bg-green-700 hover:bg-green-600 text-white px-3 sm:px-5 py-1.5 rounded text-xs sm:text-sm font-medium transition-colors shadow-lg shadow-green-900/20"
                       >
                         Submit
                       </button>

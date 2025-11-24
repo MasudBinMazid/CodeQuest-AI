@@ -59,61 +59,61 @@ const ResultsView: React.FC<ResultsViewProps> = ({ questions, answers, config, t
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-8 flex flex-col items-center">
+    <div className="min-h-screen bg-slate-900 text-white p-4 sm:p-6 md:p-8 flex flex-col items-center">
       <div className="w-full max-w-4xl">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-indigo-600 rounded-full shadow-lg shadow-indigo-500/30 mb-6">
-            <Award size={40} className="text-white" />
+        <div className="text-center mb-6 sm:mb-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-indigo-600 rounded-full shadow-lg shadow-indigo-500/30 mb-4 sm:mb-6">
+            <Award size={32} className="text-white sm:w-10 sm:h-10" />
           </div>
-          <h1 className="text-4xl font-bold mb-2">Assessment Complete</h1>
-          <p className="text-slate-400">Here is your performance breakdown</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Assessment Complete</h1>
+          <p className="text-sm sm:text-base text-slate-400">Here is your performance breakdown</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-          <div className="bg-slate-800/50 border border-slate-700 p-6 rounded-xl flex flex-col items-center justify-center">
-            <span className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Total Score</span>
-            <span className="text-3xl font-bold text-white">{score} <span className="text-lg text-slate-500">/ {questions.length}</span></span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-10">
+          <div className="bg-slate-800/50 border border-slate-700 p-4 sm:p-6 rounded-xl flex flex-col items-center justify-center">
+            <span className="text-slate-400 text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Total Score</span>
+            <span className="text-2xl sm:text-3xl font-bold text-white">{score} <span className="text-sm sm:text-lg text-slate-500">/ {questions.length}</span></span>
           </div>
-          <div className="bg-slate-800/50 border border-slate-700 p-6 rounded-xl flex flex-col items-center justify-center">
-            <span className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Percentage</span>
-            <span className={`text-3xl font-bold ${percentage >= 70 ? 'text-green-400' : percentage >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
+          <div className="bg-slate-800/50 border border-slate-700 p-4 sm:p-6 rounded-xl flex flex-col items-center justify-center">
+            <span className="text-slate-400 text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Percentage</span>
+            <span className={`text-2xl sm:text-3xl font-bold ${percentage >= 70 ? 'text-green-400' : percentage >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
               {percentage}%
             </span>
           </div>
-          <div className="bg-slate-800/50 border border-slate-700 p-6 rounded-xl flex flex-col items-center justify-center">
-             <span className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Time Used</span>
-             <span className="text-3xl font-bold text-blue-400 flex items-center gap-2">
-               <Clock size={20} className="opacity-50" /> {formatDuration(timeSpent)}
+          <div className="bg-slate-800/50 border border-slate-700 p-4 sm:p-6 rounded-xl flex flex-col items-center justify-center">
+             <span className="text-slate-400 text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Time Used</span>
+             <span className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-400 flex items-center gap-1 sm:gap-2">
+               <Clock size={16} className="opacity-50 sm:w-5 sm:h-5" /> <span className="text-lg sm:text-2xl md:text-3xl">{formatDuration(timeSpent)}</span>
              </span>
              {config.timeLimit > 0 && <span className="text-xs text-slate-500 mt-1">Limit: {config.timeLimit}m</span>}
           </div>
-          <div className="bg-slate-800/50 border border-slate-700 p-6 rounded-xl flex flex-col items-center justify-center">
-            <span className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Rating</span>
-            <span className="text-2xl font-bold text-indigo-400">
+          <div className="bg-slate-800/50 border border-slate-700 p-4 sm:p-6 rounded-xl flex flex-col items-center justify-center">
+            <span className="text-slate-400 text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Rating</span>
+            <span className="text-lg sm:text-xl md:text-2xl font-bold text-indigo-400">
               {percentage >= 90 ? 'Expert' : percentage >= 70 ? 'Proficient' : percentage >= 50 ? 'Developing' : 'Novice'}
             </span>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <BarChart2 size={20}/> Detailed Analysis
+        <div className="space-y-3 sm:space-y-4">
+          <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+            <BarChart2 size={18} className="sm:w-5 sm:h-5"/> Detailed Analysis
           </h2>
           {questions.map((q, idx) => {
             const ans = gradedAnswers.find(a => a.questionId === q.id);
             const isCorrect = ans?.isCorrect;
 
             return (
-              <div key={q.id} className={`bg-slate-800 border ${isCorrect ? 'border-green-900/50' : 'border-red-900/50'} rounded-lg p-6`}>
-                <div className="flex items-start gap-4">
+              <div key={q.id} className={`bg-slate-800 border ${isCorrect ? 'border-green-900/50' : 'border-red-900/50'} rounded-lg p-4 sm:p-6`}>
+                <div className="flex items-start gap-3 sm:gap-4">
                   <div className={`mt-1 shrink-0 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
-                    {isCorrect ? <CheckCircle size={24} /> : <XCircle size={24} />}
+                    {isCorrect ? <CheckCircle size={20} className="sm:w-6 sm:h-6" /> : <XCircle size={20} className="sm:w-6 sm:h-6" />}
                   </div>
-                  <div className="flex-1 w-full">
+                  <div className="flex-1 w-full min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-mono text-slate-500">Q{idx + 1} • {q.type}</span>
                     </div>
-                    <h3 className="text-lg font-medium text-white mb-4">{q.title}</h3>
+                    <h3 className="text-base sm:text-lg font-medium text-white mb-3 sm:mb-4">{q.title}</h3>
                     
                     {q.type === QuestionType.MCQ && (
                        <div className="space-y-2">
@@ -132,10 +132,10 @@ const ResultsView: React.FC<ResultsViewProps> = ({ questions, answers, config, t
                            }
                            
                            return (
-                              <div key={opt.id} className={`p-3 rounded border flex items-center justify-between transition-all ${styles}`}>
-                                 <span className="text-sm text-slate-200">{opt.text}</span>
-                                 {isCorrectOption && <span className="text-xs text-green-400 font-bold flex items-center gap-1 shrink-0"><CheckCircle size={14}/> Correct</span>}
-                                 {isSelected && !isCorrectOption && <span className="text-xs text-red-400 font-bold flex items-center gap-1 shrink-0"><XCircle size={14}/> Your Choice</span>}
+                              <div key={opt.id} className={`p-2 sm:p-3 rounded border flex items-start sm:items-center justify-between gap-2 transition-all ${styles}`}>
+                                 <span className="text-xs sm:text-sm text-slate-200 break-words">{opt.text}</span>
+                                 {isCorrectOption && <span className="text-xs text-green-400 font-bold flex items-center gap-1 shrink-0"><CheckCircle size={14}/> <span className="hidden sm:inline">Correct</span></span>}
+                                 {isSelected && !isCorrectOption && <span className="text-xs text-red-400 font-bold flex items-center gap-1 shrink-0"><XCircle size={14}/> <span className="hidden sm:inline">Your Choice</span></span>}
                               </div>
                            )
                          })}
@@ -143,23 +143,23 @@ const ResultsView: React.FC<ResultsViewProps> = ({ questions, answers, config, t
                     )}
 
                     {q.type === QuestionType.CODE && (
-                      <div className="mt-4 space-y-4">
+                      <div className="mt-3 sm:mt-4 space-y-3 sm:space-y-4">
                         <div>
                             <div className="text-xs text-slate-500 mb-1">Your Solution:</div>
-                            <div className="bg-black/30 rounded p-3 font-mono text-sm text-slate-300 overflow-x-auto border border-slate-700/50">
+                            <div className="bg-black/30 rounded p-2 sm:p-3 font-mono text-xs sm:text-sm text-slate-300 overflow-x-auto border border-slate-700/50">
                             {ans?.code ? ans.code : '// No code submitted'}
                             </div>
                             {ans?.feedback && (
-                            <div className="mt-2 text-sm text-blue-300 bg-blue-900/20 p-2 rounded">
+                            <div className="mt-2 text-xs sm:text-sm text-blue-300 bg-blue-900/20 p-2 rounded">
                                 <span className="font-bold">Feedback:</span> {ans.feedback}
                             </div>
                             )}
                         </div>
 
                         {q.referenceCode && (
-                            <div className="border-t border-slate-700/50 pt-4">
+                            <div className="border-t border-slate-700/50 pt-3 sm:pt-4">
                                 <div className="text-xs text-green-500 mb-1 flex items-center gap-1"><BookOpen size={12}/> Reference Solution:</div>
-                                <div className="bg-green-900/10 rounded p-3 font-mono text-sm text-green-100 overflow-x-auto border border-green-900/30">
+                                <div className="bg-green-900/10 rounded p-2 sm:p-3 font-mono text-xs sm:text-sm text-green-100 overflow-x-auto border border-green-900/30">
                                     {q.referenceCode}
                                 </div>
                             </div>
@@ -173,12 +173,12 @@ const ResultsView: React.FC<ResultsViewProps> = ({ questions, answers, config, t
           })}
         </div>
 
-        <div className="mt-12 text-center pb-12">
+        <div className="mt-8 sm:mt-12 text-center pb-8 sm:pb-12">
           <button
             onClick={onRestart}
-            className="bg-white text-slate-900 px-8 py-3 rounded-full font-bold hover:bg-slate-200 transition-colors flex items-center gap-2 mx-auto"
+            className="bg-white text-slate-900 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold hover:bg-slate-200 transition-colors flex items-center gap-2 mx-auto text-sm sm:text-base"
           >
-            <RotateCcw size={20}/> Start New Challenge
+            <RotateCcw size={18} className="sm:w-5 sm:h-5"/> Start New Challenge
           </button>
         </div>
       </div>
